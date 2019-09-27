@@ -37,10 +37,19 @@ namespace com.ryu.catcityconnection
         /// </summary>
         string gameVersion = "1";
 
-    #endregion
+        /// <summary>
+        /// 現在のプロセスを追跡します。 接続は非同期であり、Photonからのいくつかのコールバックに基づいているため、
+        /// Photonからのコールバックを受信したときの動作を適切に調整するには、これを追跡する必要があります。
+        /// 通常、これはOnConnectedToMaster（）コールバックに使用されます。
+        /// </summary>
+        /// 
+        bool isConnecting;
 
-        
-    #region MonoBehaviour CallBacks
+
+        #endregion
+
+
+        #region MonoBehaviour CallBacks
 
         /// <summary>
         /// 初期初期化フェーズ中にUnityによってGameObjectで呼び出されるMonoBehaviourメソッド。
@@ -75,6 +84,9 @@ namespace com.ryu.catcityconnection
         public void Connect()
         {
 
+            // ルームに参加する意志を追跡します。ゲームから戻ったときに、接続されているコールバックを取得するため、何をすべきかを知る必要があるからです。
+            isConnecting = true;
+
             progressLabel.SetActive(true);
             controlPanel.SetActive(false);
 
@@ -100,8 +112,12 @@ namespace com.ryu.catcityconnection
         {
             Debug.Log("PUN Basics Tutorial/Launcher: OnConnectedToMaster() was called by PUN");
 
-            //#Critical：最初に行うことは、既存の潜在的な部屋に参加することです。 良い場合は、OnJoinRandomFailed（）でコールバックされます
-            PhotonNetwork.JoinRandomRoom();
+            if (isConnecting)
+            {
+                //#Critical：最初に行うことは、既存の潜在的な部屋に参加することです。 良い場合は、OnJoinRandomFailed（）でコールバックされます
+                PhotonNetwork.JoinRandomRoom();
+
+            }
 
         }
 
@@ -124,9 +140,26 @@ namespace com.ryu.catcityconnection
         public override void OnJoinedRoom()
         {
             Debug.Log("PUN Basics Tutorial/Launcher: OnJoinedRoom() called by PUN. Now this client is in a room.");
+
+            // #Critical：最初のプレーヤーである場合にのみロードします。それ以外の場合は、インスタンスシーンを同期するために `PhotonNetwork.AutomaticallySyncScene`に依存します。
+            if(PhotonNetwork.CurrentRoom.PlayerCount == 1)
+            {
+
+                Debug.Log("'Room for 1' をロード");
+
+                // #Critical
+                // Load the Room Level.
+
+                PhotonNetwork.LoadLevel("Room for 1");
+
+            }
+
+
+
+
         }
 
-    #endregion
+        #endregion
 
 
     }
