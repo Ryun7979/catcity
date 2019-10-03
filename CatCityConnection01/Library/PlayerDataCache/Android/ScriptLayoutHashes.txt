@@ -77,8 +77,6 @@ fc108ce7d98c40ac0907e8ca7f500c76 UnityEngine.UI.dll:UnityEngine.UI.Text
 abf1930d8126d0b2e00e9449129a0190 UnityEngine.UI.dll:UnityEngine.EventSystems.TouchInputModule
 64e54c0cbb0177c5ea26f340efb9ff85 UnityEngine.UI.dll:UnityEngine.UI.VerticalLayoutGroup
 b31ef1c110c5a7ed74ad67be3ae59038 Unity.TextMeshPro.dll:TMPro.TMP_InputField
-71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.Advertisements.dll:UnityEngine.Advertisements.CallbackExecutor
-71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.Advertisements.dll:UnityEngine.Advertisements.Editor.Placeholder
 b1f26da3046d8b188758169a9d6b1078 PhotonUnityNetworking.Demos.dll:Photon.Pun.Demo.SlotRacer.Utils.BezierSpline
 c656dcc13ae391b68d594cc8f9c590b0 PhotonUnityNetworking.Demos.dll:Photon.Pun.Demo.Cockpit.CountOfPlayersOnMasterProperty
 cf9f5cf2c3145a37ac07f00e50e460f9 UnityEngine.UI.dll:UnityEngine.UI.AspectRatioFitter
@@ -250,6 +248,7 @@ e1300922cc039f41ab46a47f4cb05898 Unity.TextMeshPro.dll:TMPro.TMP_Settings
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:TMPro.Examples.TextConsoleSimulator
 62fef86270a167c41a606cfca1ecc156 Assembly-CSharp.dll:TMPro.Examples.ShaderPropAnimator
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:TMPro.Examples.TMP_TextSelector_A
+bd4c580f02d31d4be48d7a47440392c4 Assembly-CSharp.dll:com.ryu.catcityconnection.PlayerAnimatorManager
 11bdd61587db747672b66c52442395d8 PhotonUnityNetworking.Demos.dll:Photon.Pun.Demo.Cockpit.AppVersionProperty
 88cc9df3c6fc697bfbeacd24c0d6f2d7 UnityEngine.TestRunner.dll:UnityEngine.TestTools.BeforeAfterTestCommandState
 88cc9df3c6fc697bfbeacd24c0d6f2d7 UnityEngine.TestRunner.dll:UnityEngine.TestTools.EnumerableSetUpTearDownCommandState
@@ -345,3 +344,4 @@ c8283c7732e3b6aa70d28f1fed4430ca PhotonUnityNetworking.Utilities.dll:Photon.Pun.
 f07d654754d37f82934d9057c671e9cc PhotonUnityNetworking.Demos.dll:Photon.Pun.Demo.Cockpit.Forms.UserIdUiForm
 c656dcc13ae391b68d594cc8f9c590b0 PhotonUnityNetworking.Demos.dll:Photon.Pun.Demo.Cockpit.CountOfRoomsProperty
 f0c4eb24258257daca58a9939f0894d2 PhotonUnityNetworking.Demos.dll:Photon.Pun.Demo.Asteroids.LobbyTopPanel
+f8d0fa2493c9ea5d88b2b1c4dc6a6d9b Assembly-CSharp.dll:com.ryu.catcityconnection.PlayerManager

@@ -15,6 +15,13 @@ namespace com.ryu.catcityconnection
     public class GameManager : MonoBehaviourPunCallbacks
     {
 
+        #region Public Field
+
+        public static GameManager Instance;
+
+        #endregion
+
+
         #region Photon Callbacks
 
         // Roomから出たらシーン0（launcher)をロードする。
@@ -57,6 +64,7 @@ namespace com.ryu.catcityconnection
 
         #region Public Methods
 
+
         public void LeaveRoom()
         {
             PhotonNetwork.LeaveRoom();
@@ -66,6 +74,12 @@ namespace com.ryu.catcityconnection
 
 
         #region Private Methods
+
+
+        void Start()
+        {
+            Instance = this;
+        }
 
         void LoadArena()
         {
