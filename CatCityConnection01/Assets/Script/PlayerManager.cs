@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using Photon.Pun;
 
-namespace Photon.Pun.Demo.PunBasics
+namespace com.ryu.catcityconnection
 {
     /// <summary>
     /// Player manager
@@ -14,6 +14,15 @@ namespace Photon.Pun.Demo.PunBasics
 
     public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     {
+
+        #region Public Fields
+
+        [Tooltip("The local player instance. Use this to know if the local player is represented in the Scene")]
+        public static GameObject LocalPlayerInstance;
+
+        #endregion
+
+
         #region IPunObservable implementation
 
 
@@ -48,6 +57,10 @@ namespace Photon.Pun.Demo.PunBasics
         [Tooltip("The current Health of our player")]
         public float Health = 1.0f;
 
+        [Tooltip("プレイヤーＵＩのprefab")]
+        [SerializeField]
+        private GameObject playerUiPrefab;
+
 
         #endregion
 
@@ -67,12 +80,31 @@ namespace Photon.Pun.Demo.PunBasics
             {
                 beams.SetActive(false);
             }
+
+            //GameManager.csで使用：localPlayerインスタンスを追跡して、レベルが同期されたときにインスタンス化を防止します
+            if (photonView.IsMine)
+            {
+                PlayerManager.LocalPlayerInstance = this.gameObject;
+            }
+            //インスタンスがレベル同期に耐えるように、ロード時に破棄しないようにフラグを立てます。これにより、レベルのロード時にシームレスなエクスペリエンスを提供します。
+            DontDestroyOnLoad(this.gameObject);
+
         }
 
 
         void Start()
         {
             CameraWork _cameraWork = this.gameObject.GetComponent<CameraWork>();
+
+            if (playerUiPrefab != null)
+            {
+                GameObject _uiGo = Instantiate(playerUiPrefab);
+                _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+            }
+            else
+            {
+                Debug.LogWarning("<Color=Red><a>Missing</a></Color> PlayerUiPrefab reference on player Prefab.", this);
+            }
 
 
             if (_cameraWork != null)
@@ -86,6 +118,14 @@ namespace Photon.Pun.Demo.PunBasics
             {
                 Debug.LogError("<Color=Red><a>Missing</a></Color> CameraWork Component on playerPrefab.", this);
             }
+
+#if UNITY_5_4_OR_NEWER
+            //Unity 5.4には新しいシーン管理があります。 CalledOnLevelWasLoadedを呼び出すメソッドを登録します。
+            UnityEngine.SceneManagement.SceneManager.sceneLoaded += (scene, loadingMode) =>
+            {
+                this.CalledOnLevelWasLoaded(scene.buildIndex);
+            };
+#endif
         }
 
         /// <summary>
@@ -155,7 +195,29 @@ namespace Photon.Pun.Demo.PunBasics
 
         }
 
+        #if !UNITY_5_4_OR_NEWER
 
+        // <summary>See CalledOnLevelWasLoaded. Outdated in Unity 5.4.</summary>
+
+        void OnLevelWasLoaded(int level)
+        {
+            this.CalledOnLevelWasLoaded(level);
+        }
+
+        #endif
+
+        void CalledOnLevelWasLoaded(int level)
+        {
+            // 私たちがアリーナの外にいるかどうかを確認し、そうであれば、安全地帯のアリーナの中心の周りにスポーンします
+            if (!Physics.Raycast(transform.position, -Vector3.up, 5f))
+            {
+                transform.position = new Vector3(0f, 5f, 0f);
+            }
+
+            GameObject _uiGo = Instantiate(this.playerUiPrefab);
+            _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+
+        }
 
         #endregion
 
@@ -180,7 +242,7 @@ namespace Photon.Pun.Demo.PunBasics
             }
         }
 
-        #endregion
+#endregion
 
     }
 

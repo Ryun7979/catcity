@@ -19,6 +19,10 @@ namespace com.ryu.catcityconnection
 
         public static GameManager Instance;
 
+        [Tooltip("プレイヤーキャラのprefabを設定")]
+        public GameObject playerPrefab;
+
+
         #endregion
 
 
@@ -79,6 +83,27 @@ namespace com.ryu.catcityconnection
         void Start()
         {
             Instance = this;
+
+            if(playerPrefab == null)
+            {
+                Debug.LogError("<Color=Red><a>Missing</a></Color> playerPrefab Reference. Please set it up in GameObject 'Game Manager'", this);
+            }
+            else
+            {
+                Debug.LogFormat("We are Instantiating LocalPlayer from {0}", Application.loadedLevelName);
+
+                if(PlayerManager.LocalPlayerInstance == null)
+                {
+                    Debug.LogFormat("We are Instantiating LocalPlayer from {0}", SceneManagerHelper.ActiveSceneName);
+                    // Roomに入った時にキャラクターをスポーンさせる。PhotonNetwork.Instantiateを使用して同期されます
+                    PhotonNetwork.Instantiate(this.playerPrefab.name, new Vector3(0f, 5f, 0f), Quaternion.identity, 0);
+                }
+                else
+                {
+                    Debug.LogFormat("Ignoring scene load for {0}", SceneManagerHelper.ActiveSceneName);
+                }
+            }
+
         }
 
         void LoadArena()

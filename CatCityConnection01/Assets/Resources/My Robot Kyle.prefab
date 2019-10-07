@@ -1459,7 +1459,7 @@ GameObject:
   - component: {fileID: 1313770526340175332}
   - component: {fileID: 1313770526332992004}
   - component: {fileID: 270826378895288207}
-  - component: {fileID: 1241924735263113561}
+  - component: {fileID: 648974770215961558}
   - component: {fileID: 631772335638349}
   - component: {fileID: 8262130206326525137}
   - component: {fileID: 7112397955916917651}
@@ -1525,7 +1525,7 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &1241924735263113561
+--- !u!114 &648974770215961558
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1534,13 +1534,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1313770526340401604}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd08475b23aa548b7b9d28397d430b32, type: 3}
+  m_Script: {fileID: 11500000, guid: 4605e9506f688b84ea3cc13dea2e51fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   distance: 7
   height: 3
   heightSmoothLag: 0.3
-  centerOffset: {x: 0, y: 3, z: 0}
+  centerOffset: {x: 0, y: 2, z: 0}
   followOnStart: 0
 --- !u!114 &631772335638349
 MonoBehaviour:
@@ -1569,6 +1569,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   beams: {fileID: 1965234103}
   Health: 1
+  playerUiPrefab: {fileID: 800204339765103000, guid: 850db62dfdedbd94694d45be91faba7d,
+    type: 3}
 --- !u!114 &7112397955916917651
 MonoBehaviour:
   m_ObjectHideFlags: 0
