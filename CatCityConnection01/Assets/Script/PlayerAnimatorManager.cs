@@ -1,9 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 
-namespace Photon.Pun.Demo.PunBasics
+namespace com.ryu.catcityconnection
 {
     public class PlayerAnimatorManager : MonoBehaviourPun
     {
