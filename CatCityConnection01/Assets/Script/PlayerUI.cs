@@ -18,17 +18,17 @@ namespace com.ryu.catcityconnection
 
         [Tooltip("プレイヤーネームを表示するtxtオブジェクト")]
         [SerializeField]
-        private Text playerNameText;
+        private Text playerNameText = default;
 
         [Tooltip("スライダーのオブジェクト")]
         [SerializeField]
-        private Slider playerHealthSlider;
+        private Slider playerHealthSlider = default;
 
         PlayerManager target;
 
         float characterControllerHeight = 0f;
 
-        Transform targetTransform;
+        Transform targetTransform = default;
 
         Vector3 targetPosition;
 

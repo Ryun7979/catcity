@@ -50,7 +50,7 @@ namespace com.ryu.catcityconnection
 
         [Tooltip("Beam GameObject to control")]
         [SerializeField]
-        private GameObject beams;
+        private GameObject beams = default;
         // true の時はユーザーがビームを出しているとき。
         bool IsFiring;
 
@@ -59,7 +59,7 @@ namespace com.ryu.catcityconnection
 
         [Tooltip("プレイヤーＵＩのprefab")]
         [SerializeField]
-        private GameObject playerUiPrefab;
+        private GameObject playerUiPrefab = default;
 
 
         #endregion
@@ -70,7 +70,7 @@ namespace com.ryu.catcityconnection
         /// </summary>
         /// 
 
-        void Awake()
+        public void Awake()
         {
             if(beams == null)
             {
@@ -92,20 +92,9 @@ namespace com.ryu.catcityconnection
         }
 
 
-        void Start()
+        public void Start()
         {
             CameraWork _cameraWork = this.gameObject.GetComponent<CameraWork>();
-
-            if (playerUiPrefab != null)
-            {
-                GameObject _uiGo = Instantiate(playerUiPrefab);
-                _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
-            }
-            else
-            {
-                Debug.LogWarning("<Color=Red><a>Missing</a></Color> PlayerUiPrefab reference on player Prefab.", this);
-            }
-
 
             if (_cameraWork != null)
             {
@@ -119,19 +108,24 @@ namespace com.ryu.catcityconnection
                 Debug.LogError("<Color=Red><a>Missing</a></Color> CameraWork Component on playerPrefab.", this);
             }
 
-#if UNITY_5_4_OR_NEWER
-            //Unity 5.4には新しいシーン管理があります。 CalledOnLevelWasLoadedを呼び出すメソッドを登録します。
-            UnityEngine.SceneManagement.SceneManager.sceneLoaded += (scene, loadingMode) =>
+
+
+            if (playerUiPrefab != null)
             {
-                this.CalledOnLevelWasLoaded(scene.buildIndex);
-            };
-#endif
+                GameObject _uiGo = Instantiate(playerUiPrefab);
+                _uiGo.SendMessage("SetTarget", this, SendMessageOptions.RequireReceiver);
+            }
+            else
+            {
+                Debug.LogWarning("<Color=Red><a>Missing</a></Color> PlayerUiPrefab reference on player Prefab.", this);
+            }
+
         }
 
         /// <summary>
         /// 毎フレームの処理
         /// </summary>
-        void Update()
+        public void Update()
         {
             if (photonView.IsMine)
             {

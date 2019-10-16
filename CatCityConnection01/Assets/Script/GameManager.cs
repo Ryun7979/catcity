@@ -90,7 +90,7 @@ namespace com.ryu.catcityconnection
             }
             else
             {
-                Debug.LogFormat("We are Instantiating LocalPlayer from {0}", Application.loadedLevelName);
+                Debug.LogFormat("We are Instantiating LocalPlayer from {0}", 00);
 
                 if(PlayerManager.LocalPlayerInstance == null)
                 {

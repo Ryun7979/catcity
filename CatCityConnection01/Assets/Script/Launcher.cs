@@ -16,11 +16,11 @@ namespace com.ryu.catcityconnection
         /// Tooltipで↓のように書くと、マウス載せたら説明がでるようになるみたい。
         [Tooltip("ユーザーが名前を入力し、接続して再生できるUiパネル")]
         [SerializeField]
-        private GameObject controlPanel;
+        private GameObject controlPanel = default;
 
         [Tooltip("接続が進行中であることをユーザーに通知するUIラベル")]
         [SerializeField]
-        private GameObject progressLabel;
+        private GameObject progressLabel = default;
 
         /// 部屋ごとのプレーヤーの最大数。 部屋がいっぱいになると、新しいプレイヤーが参加できなくなり、新しい部屋が作成されます。
         [Tooltip("部屋ごとのプレーヤーの最大数。 部屋がいっぱいになると、新しいプレイヤーが参加できなくなり、新しい部屋が作成されます")]
